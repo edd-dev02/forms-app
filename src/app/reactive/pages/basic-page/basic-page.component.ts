@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   templateUrl: './basic-page.component.html',
@@ -23,12 +23,15 @@ export class BasicPageComponent {
 
   // Sintaxis mas elegante, es lo mismo que el bloque de arriba
   public myForm: FormGroup = this.fb.group({
-    name: [""],
-    price: [0],
-    inStorage: [0],
+    name: ["" , [ Validators.required, Validators.minLength(3) ] ],
+    price: [0 , [Validators.required, Validators.min(1)] ],
+    inStorage: [0, [ Validators.required, Validators.min(1) ] ],
   });
 
   onSave(): void {
+
+    if(this.myForm.invalid) return;
+
     console.log(this.myForm.value);
   }
 
