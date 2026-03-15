@@ -30,7 +30,33 @@ export class BasicPageComponent implements OnInit{
   ngOnInit(): void {
 
     // Al cargar el componente por primera vez, estos seran los valores iniciales de los campos
-    this.myForm.reset( product );
+    //this.myForm.reset( product );
+  }
+
+  isValidField(field: string ): boolean | null {
+    return this.myForm.controls[field].errors && this.myForm.controls[field].touched;
+  }
+
+  getFieldError(field: string): string | null{
+
+    if(!this.myForm.controls[field]) return null;
+
+    const errors = this.myForm.controls[field].errors || {}; // Si es nulo, retornamos un objeto vacío
+
+    for (const key of Object.keys(errors)) {
+
+      switch(key) {
+        case 'required':
+          return "Este campo es requerido";
+
+        case 'minlength':
+          return `Mínimo ${ errors['minlength'].requiredLength } caracteres`;
+      }
+
+    }
+
+    return null;
+
   }
 
   // Sintaxis mas elegante, es lo mismo que el bloque de arriba
@@ -42,7 +68,12 @@ export class BasicPageComponent implements OnInit{
 
   onSave(): void {
 
-    if(this.myForm.invalid) return;
+    if(this.myForm.invalid) {
+
+      // Activa todas las validaciones
+      this.myForm.markAllAsTouched();
+      return;
+    }
 
     console.log(this.myForm.value);
 
