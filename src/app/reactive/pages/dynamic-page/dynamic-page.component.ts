@@ -76,6 +76,12 @@ export class DynamicPageComponent {
 
   }
 
+  onDeleteFavorite(index : number): void {
+
+    // Utilizamos el getter
+    this.favoriteGames.removeAt(index);
+  }
+
   onSubmit(): void {
 
     // Si el formulario es inválido
