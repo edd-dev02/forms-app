@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   templateUrl: './dynamic-page.component.html',
@@ -21,6 +21,8 @@ export class DynamicPageComponent {
 
     ])
   });
+
+  public newFavorite: FormControl = new FormControl("", Validators.required);
 
   // Inyectamos FormBuilder para crear formularios más fácil
   constructor(private fb: FormBuilder) { }
@@ -73,6 +75,19 @@ export class DynamicPageComponent {
     }
 
     return null;
+
+  }
+
+  onAddToFavorites(): void {
+
+    if(this.newFavorite.invalid) return;
+
+    const newGame = this.newFavorite.value;
+
+    // this.favoriteGames.push(new FormControl(newGame, Validators.required))
+    this.favoriteGames.push(this.fb.control(newGame, Validators.required));
+
+    this.newFavorite.reset();
 
   }
 
