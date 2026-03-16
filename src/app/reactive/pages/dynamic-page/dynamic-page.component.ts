@@ -110,6 +110,9 @@ export class DynamicPageComponent {
     // Si todo es válido mostramos el valor
     console.log(this.myForm.value);
 
+    // Se eliminan los campos dinámicos al momento de realizar el POST
+    (this.myForm.controls["favoriteGames"] as FormArray) = this.fb.array([]);
+
     // Resetear formulario
     // ⚠️ reset limpia valores pero también estados
     this.myForm.reset();
