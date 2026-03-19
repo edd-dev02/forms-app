@@ -1,7 +1,7 @@
-import { FormControl } from "@angular/forms";
+import { FormControl, ValidationErrors } from "@angular/forms";
 
 
-export const cantBeStrider = (control: FormControl) => {
+export const cantBeStrider = (control: FormControl): ValidationErrors | null => {
 
   const value: string = control.value.trim().toLowerCase();
 
