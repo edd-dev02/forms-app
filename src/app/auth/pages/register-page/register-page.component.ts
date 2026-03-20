@@ -29,9 +29,9 @@ export class RegisterPageComponent {
     password2: ["", [ Validators.required, ] ],
   });
 
-  public isValidField( field: string ): void {
+  public isValidField( field: string ): boolean | null {
 
-    // TODO: Obtener validación desde un servicio
+    return this.validatorsService.isValidField(this.myForm, field)
 
   }
 
